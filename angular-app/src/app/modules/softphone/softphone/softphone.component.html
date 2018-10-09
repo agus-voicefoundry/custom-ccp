@@ -1,0 +1,67 @@
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  
+  <app-agentstatus
+    [viewMode]="viewMode"
+    [(agentStatus)]="agentStatus"
+    [(availableAgentStates)]="availableAgentStates">
+  </app-agentstatus>
+
+  <img src="assets/agent_status_bar_icons/ic_softphone active_28px.svg" style="cursor: pointer; margin: 0 5px;" (click)="openCloseSoftphone();" />
+
+  <div id="softphoneContainer" style="position: relative;" *ngIf="showSoftPhone">
+
+    <div style="padding-top: 5px; width: 225px; height: 400px; border: 1px solid #d4d4d4; position: absolute; top: -19px; right: 3px; background-color: white;">
+
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d4d4d4; padding-bottom: 7px;">
+
+        <img src="assets/softphone_icons/ic_hamburger_phone_settings_24px.svg" style="cursor: pointer; margin: 0 5px;" onClick="" />
+
+        <img src="assets/micro_navigation_icons/ic_exit_24px.svg" style="cursor: pointer; margin: 0 5px;" (click)="openCloseSoftphone();" />
+
+      </div>
+
+      <app-dialpad
+        [viewMode]="viewMode"
+        [outboundNumber]="outboundNumber"
+        (viewModeChange)="setViewMode($event)"
+        (numberToDialChange)="updateOutboundNumber($event)">
+      </app-dialpad>
+
+      <app-calling
+        [viewMode]="viewMode"
+        [outboundNumber]="outboundNumber"
+        (viewModeChange)="setViewMode($event)">
+      </app-calling>
+
+      <app-incomingcall
+        [viewMode]="viewMode"
+        [incomingContact]="incomingContact"
+        (viewModeChange)="setViewMode($event)">
+      </app-incomingcall>
+
+      <app-oncall
+        [viewMode]="viewMode"
+        (viewModeChange)="setViewMode($event)">
+      </app-oncall>
+
+      <app-transfer
+        [viewMode]="viewMode"
+        [quickConnectAgents]="quickConnectAgents"
+        [showQuickConnects]="showQuickConnects"
+        [selectedEndpoint]="selectedEndpoint"
+        (selectedEndpointChange)="changeQuickConnect($event)"
+        (viewModeChange)="setViewMode($event)">
+      </app-transfer>
+
+      <app-aftercall
+          [viewMode]="viewMode">
+      </app-aftercall>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- This is the container for the Amazon Connect embedded CTI -->
+<div id="containerDiv" style="height: 100%; position: absolute; top: 0;"></div>

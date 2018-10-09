@@ -1,0 +1,171 @@
+<div *ngIf="viewMode=='agenthome'" style="height:100%">
+    <div id="innerTopBar" style="height: 80px; background-color: #f4f5f6; padding: 0 20px;">
+        <div style="font-weight: bold; padding: 20px 0 5px 0;" id="currentDiallerStatus">
+            Waiting Inbound
+        </div>
+
+        <div style="color: gray;">
+            00:00
+        </div>
+    </div>
+
+    <div id="agentDetailsContainer" style="display: flex; height: calc(100% - 80px);">
+
+        <div id="agentProfileContainer" style="width: 300px; background-color: #e9ecf1;">
+
+            <div style="text-align: center;">
+
+                <div style="font-weight: bold; padding: 30px 0 15px 0;">
+                    Agent Profile
+                </div>
+
+                <img src="assets/customer_profile_icons/ic_blank profile_52px.svg" height="100" />
+            </div>
+
+            <div style="padding: 20px;">
+
+                <div style="border-bottom: 1px solid #d4d4d4; width: 100%; padding-top: 10px;">
+                    Agent Name
+                </div>
+                <div style="color: gray; padding-top: 3px; font-size: 12px;">
+                    NAME
+                </div>
+
+                <div style="border-bottom: 1px solid #d4d4d4; width: 100%; padding-top: 10px;">
+                    Agent Title
+                </div>
+                <div style="color: gray; padding-top: 3px; font-size: 12px;">
+                    TITLE
+                </div>
+
+                <div style="display: flex; padding-top: 15px;">
+                    <div style="background-color: #385762; padding: 3px; color: #ffffff; margin-right: 5px;">Skill 1</div>
+                    <div style="background-color: #385762; padding: 3px; color: #ffffff;">Skill 2</div>
+                </div>
+                <div style="color: gray; padding-top: 8px; font-size: 12px;">
+                    ASSIGNED SKILLS
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="recentCallsContainer" style="width: 300px; background-color: #0b2b37;">
+            <div style="width: 300px; height: 200px; background-color: #385762;">
+                <div style="display: flex; justify-content: flex-end; color: #B4D33B; padding: 5px; font-size: 14px;">
+                    0% wk / wk
+                </div>
+                <div style="padding: 5px 15px;">
+                    <div style="color: lightgray;">
+                        Productive State
+                    </div>
+                    <div style="display: flex; justify-content: space-between; color: white; padding-top: 10px;">
+                        <div style="font-size: 22px; font-weight: bold;">
+                            0%
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; color: lightgray;">
+                                <div>
+                                    <div>
+                                        0
+                                    </div>
+                                    <div>
+                                        h
+                                    </div>
+                                </div>
+                                <div style="padding: 0 5px">
+                                    :
+                                </div>
+                                <div>
+                                    <div>
+                                        0
+                                    </div>
+                                    <div>
+                                        m
+                                    </div>
+                                </div>
+                                <div style="padding: 0 5px">
+                                    :
+                                </div>
+                                <div>
+                                    <div>
+                                        0
+                                    </div>
+                                    <div>
+                                        s
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="padding: 5px 15px;">
+                    <div style="color: lightgray;">
+                        Nonrpoductive State
+                    </div>
+                    <div style="display: flex; justify-content: space-between; color: white; padding-top: 10px;">
+                        <div style="font-size: 22px; font-weight: bold;">
+                            0%
+                        </div>
+                        <div>
+                            <div style="display: flex; justify-content: space-between; color: lightgray;">
+                                <div>
+                                    <div>
+                                        0
+                                    </div>
+                                    <div>
+                                        h
+                                    </div>
+                                </div>
+                                <div style="padding: 0 5px">
+                                    :
+                                </div>
+                                <div>
+                                    <div>
+                                        0
+                                    </div>
+                                    <div>
+                                        m
+                                    </div>
+                                </div>
+                                <div style="padding: 0 5px">
+                                    :
+                                </div>
+                                <div>
+                                    <div>
+                                        0
+                                    </div>
+                                    <div>
+                                        s
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height: calc(100% - 200px); overflow-y: auto;">
+                <div style="padding-bottom: 10px; margin: 10px 10px 0 10px; color: white; font-weight: bold; border-bottom: 1px solid lightgray;">
+                    Recent Calls
+                </div>
+
+                <div id="recentCallsList">
+
+                    <div *ngFor="let recentCall of agentRecentCalls" style="padding: 6px; margin: 0 10px; border-bottom: 1px solid lightgray; display: flex; align-items: center;">
+                        <div style="padding-right: 10px;">
+                            <img src="assets/address_book_icons/{{(recentCall.callType=='inbound')?'ic_call_incoming_30px.svg':'ic_call_outgoing_30px.svg'}}"
+                            /> </div>
+                        <div>
+                            <div style="color: white; font-weight: bold; padding-bottom: 5px;">{{recentCall.customerName}}</div>
+                            <div style="color: lightgray;">{{recentCall.phone}}</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

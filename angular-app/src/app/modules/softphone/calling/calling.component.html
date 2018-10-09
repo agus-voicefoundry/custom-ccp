@@ -1,0 +1,30 @@
+<div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 374px;" id="softphoneCalling" *ngIf="viewMode=='calling'">
+
+    <div style="padding-top: 50px; font-size: 14px; color: #2fb0ff;">
+        Calling...
+    </div>
+
+    <div style="padding-top: 40px; text-align: center;">
+        <div style="font-weight: bold;">Customer Name</div>
+        <div style="padding-top: 6px; font-size: 12px;">
+            <span>Number: </span> +1 {{outboundNumber}}</div>
+    </div>
+
+    <div style="padding-top: 15px; display: flex; align-items: center;">
+        <img src="assets/customer_profile_icons/ic_location_on_24px.svg" width="18" />
+        <div style="font-size: 12px;">City, Country</div>
+    </div>
+
+
+    <div style="margin: 15px; text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+        <div style="width: 200px; background-color: #fffeec; margin-bottom: 10px; padding: 10px 0; display: flex; align-items: center; justify-content: space-around;">
+            <img src="assets/address_book_icons/ic_call_outgoing_30px.svg" />
+            <div style="font-size: 14px;" id="contactphone2">+1 {{outboundNumber}}</div>
+        </div>
+
+        <div (click)="cancelCall();" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 168px; height: 30px; background-color: #fe4e03; color: white; border-radius: 2px; cursor: pointer;">
+            Cancel
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,73 @@
+<div id="innerSearchPanel" style="width: 100%;" *ngIf="viewMode=='search' || viewMode=='users'">
+
+    <div style="height: 80px; background-color: #f4f5f6; padding: 0 20px; ">
+        <div style="font-weight: bold; padding: 20px 0 5px 0;" id="">
+            Search for customer record
+        </div>
+
+        <div style="color: gray;">
+            April 27, 2018 11:32 am
+        </div>
+    </div>
+
+    <div id="" style="display: flex; height: calc(100% - 80px);">
+
+        <div id="" style="width: 300px; background-color: #e9ecf1; padding: 15px; ">
+
+            <input placeholder="" style="width: 290px; border: 1px solid lightgray; padding: 5px;" id="customerNameToSearch" [(ngModel)]="userName"
+            />
+            <div style="color: gray; padding-top: 3px; font-size: 12px;">CUSTOMER NAME</div>
+
+            <div style="width: 100%; display: flex; justify-content: center; padding-top: 20px;">
+                <div (click)="callCustomerSearch();" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 168px; height: 30px; background-color: #1cbad4; color: white; border-radius: 2px; cursor: pointer;">
+                    Search
+                </div>
+            </div>
+
+        </div>
+
+        <div id="" style="width: calc(100% - 300px);">
+
+            <div id="loadingCustomersLabel" style=" justify-content: center;" *ngIf="viewMode=='users' && !users">
+                <div style="padding-top: 50px;">
+                    Loading customers...
+                </div>
+            </div>
+
+            <div id="searchResults" *ngIf="viewMode=='users' && users">
+
+                <div *ngFor="let user of users" style="display: flex; border: 1px solid lightgray; margin: 5px 10px; justify-content: space-between;">
+                    <div style="padding: 10px; width: 300px;">
+                        <div style="display: flex;">
+                            <div style="font-weight: bold; width: 100px;">First Name:&nbsp;</div>
+                            <div> {{user.firstName}} </div>
+                        </div>
+                        <div style="display: flex;">
+                            <div style="font-weight: bold; width: 100px;">Last Name:&nbsp;</div>
+                            <div> {{user.lastName}} </div>
+                        </div>
+                    </div>
+                    <div style="padding: 10px; width: 400px;">
+                        <div style="display: flex;">
+                            <div style="font-weight: bold; width: 80px;">Email:&nbsp;</div>
+                            <div> {{user.email}} </div>
+                        </div>
+                        <div style="display: flex;">
+                            <div style="font-weight: bold; width: 80px;">Phone:&nbsp;</div>
+                            <div style="text-decoration: underline; color: blue; cursor: pointer;" (click)="placeCall(user.phone);">
+                                {{user.phone}} </div>
+                        </div>
+                    </div>
+                    <div style="padding: 10px; align-self: flex-end;">
+                        <div (click)="callViewCustomerDetail( user.id );" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 168px; height: 30px; background-color: black; color: white; border-radius: 2px; cursor: pointer;">
+                            View Detail
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

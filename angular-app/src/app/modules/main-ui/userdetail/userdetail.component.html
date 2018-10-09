@@ -1,0 +1,142 @@
+<div id="innerCustomerPanel" style="width: 100%; display: block;" *ngIf="viewMode=='userdetail'">
+
+    <div id="customerDetailsContainer" style="height: calc(100% - 80px);">
+
+        <div id="customerProfileContainer" style="width: 300px; background-color: #e9ecf1;" *ngIf="userDetail">
+
+            <div style="text-align: center;">
+
+                <div style="font-weight: bold; padding: 30px 0 5px 0;" class="customer-name">
+                    {{userDetail.firstName}} {{userDetail.lastName}}
+                </div>
+                <div style="color: gray; padding-bottom: 10px; font-size: 14px; font-weight: bold;" id="customerTitle">
+                    {{userDetail.title}}
+                </div>
+
+                <img src="assets/customer_profile_icons/ic_blank profile_52px.svg" height="100" />
+            </div>
+
+            <div style="padding: 20px;">
+
+                <div style="width: 100%; padding-top: 10px;" id="customerEmail">
+                    {{userDetail.email}}
+                </div>
+                <div style="color: gray; padding-top: 3px; font-size: 12px;">
+                    EMAIL
+                </div>
+
+                <div style="width: 100%; padding-top: 10px;" id="customerPhone">
+                    {{userDetail.phone}}
+                </div>
+                <div style="color: gray; padding-top: 3px; font-size: 12px;">
+                    PHONE
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="tabsContainer" style="width: calc(100% - 300px);">
+
+            <div style="display: flex; flex-wrap: wrap; align-content: flex-start; border-bottom: 2px solid lightgray;">
+                <div id="historyTab" class="customer-detail-tab {{(selectedTab=='history')?'selected-tab':''}}" (click)="selectTab('history');" style="color: gray; padding: 15px 25px; display: flex; align-items: center; cursor: pointer;">
+                    <span>HISTORY</span>
+                    <div id="historyCount" style="margin-left: 5px; font-size: 12px; font-weight: bold; background-color: black; color: white; border-radius: 4px; height: 18px; width: 18px; display: flex; justify-content: center; align-items: center;">0</div>
+                </div>
+                <div id="ticketsTab" class="customer-detail-tab {{(selectedTab=='tickets')?'selected-tab':''}}" (click)="selectTab('tickets');" style="color: gray; padding: 15px 25px; display: flex; align-items: center; cursor: pointer;">
+                    <span>TICKETS</span>
+                    <div id="ticketCount" style="margin-left: 5px; font-size: 12px; font-weight: bold; background-color: black; color: white; border-radius: 4px; height: 18px; width: 18px; display: flex; justify-content: center; align-items: center;">0</div>
+                </div>
+            </div>
+
+            <div id="historyTabContent" style="flex-wrap: wrap; align-content: flex-start; height: calc(100% - 58px); overflow-y: auto;" *ngIf="userDetail && userDetail.calls && selectedTab=='history'">
+                <div *ngFor="let call of userDetail?.calls">
+                    <div class="history-box">
+                        <div class="history-first-col">
+                            <div class="history-date"> {{call.callDate}} </div>
+                            <div> {{call.callTime}} </div>
+                        </div>
+                        <div class="history-second-col">
+                            <div class="history-call-type">
+                                <div style="margin-right: 10px;">
+                                    <img src='assets/address_book_icons/{{("call.callType==inbound") ? "ic_call_incoming_30px.svg" : "ic_call_outgoing_30px.svg"}}'
+                                    />
+                                </div>
+                                <div>
+                                    <div style="font-weight: bold;"> {{call.callType}} Call</div>
+                                    <div> {{call.phone}} </div>
+                                </div>
+                            </div>
+                            <div class="history-agent-details">
+                                <div style="margin-right: 10px;">
+                                    <img src="assets/customer_profile_icons/ic_person_24px.svg" width="30" height="30" />
+                                </div>
+                                <div>
+                                    <div class="history-agent-name"> {{call.agentName}} </div>
+                                    <div class="history-agent-title"> {{call.agentTitle}} </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="history-third-col">
+                            <div class="history-call-details">Call Details</div>
+                        </div>
+                    </div>
+                    <div class="history-first-col">
+                        <div class="history-date"> {{call.callDate}} </div>
+                        <div> {{call.callTime}} </div>
+                    </div>
+                    <div class="history-second-col">
+                        <div class="history-call-type">
+                            <div style="margin-right: 10px;">
+                                <img src='assets/address_book_icons/{{("call.callType==inbound") ? "ic_call_incoming_30px.svg" : "ic_call_outgoing_30px.svg"}}'
+                                />
+                            </div>
+                            <div>
+                                <div style="font-weight: bold;"> {{call.callType}} Call</div>
+                                <div> {{call.phone}} </div>
+                            </div>
+                        </div>
+                        <div class="history-agent-details">
+                            <div style="margin-right: 10px;">
+                                <img src="assets/customer_profile_icons/ic_person_24px.svg" width="30" height="30" />
+                            </div>
+                            <div>
+                                <div class="history-agent-name"> {{call.agentName}} </div>
+                                <div class="history-agent-title"> {{call.agentTitle}} </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="history-third-col">
+                        <div class="history-call-details">Call Details</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="ticketsTabContent" style="flex-wrap: wrap; align-content: flex-start; height: calc(100% - 58px); overflow-y: auto;" *ngIf="userDetail && userDetail.cases && selectedTab=='tickets'">
+
+                <div *ngFor='let case of userDetail?.cases' class="ticket-box">
+                    <div class="ticket-box-header">
+                        <div>Ticket # {{case.caseId}} </div>
+                        <div> {{case.callDate}} {{case.callTime}} </div>
+                    </div>
+
+                    <div class="ticket-box-detail-container">
+                        <div class="ticket-box-detail-label">Reason:</div>
+                        <div class="ticket-box-detail-content"></div>
+                    </div>
+                    <div class="ticket-box-detail-container">
+                        <div class="ticket-box-detail-label">Status:</div>
+                        <div class="ticket-box-detail-content"> {{case.caseStatus}} </div>
+                    </div>
+                    <div class="ticket-box-detail-container">
+                        <div class="ticket-box-detail-label">Assigned:</div>
+                        <div class="ticket-box-detail-content"> {{case.agentName}} </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

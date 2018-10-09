@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow-up-box_phone_back_18px</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="arrow-up-box_phone_back_18px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="arrow-up-box_phone_back_18px-copy" transform="translate(12.000000, 12.000000) rotate(-90.000000) translate(-12.000000, -12.000000) translate(3.000000, 3.000000)" fill="#52B6AC" fill-rule="nonzero">
+            <path d="M18,16 C18,17.1045695 17.1045695,18 16,18 L2,18 C0.8954305,18 0,17.1045695 0,16 L0,2 C0,0.8954305 0.8954305,0 2,0 L16,0 C17.11,0 18,0.9 18,2 L18,16 Z M10.0135135,15 L10.0135135,6.73419773 L13.5608108,10.1377634 L15,8.75688817 L9,3 L3,8.75688817 L4.43918919,10.1377634 L7.98648649,6.73419773 L7.98648649,15 L10.0135135,15 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

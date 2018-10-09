@@ -1,0 +1,95 @@
+<div style="display: flex; flex-direction: column; justify-content: space-between;" id="inactiveSoftphone" *ngIf="viewMode=='inactive'">
+
+    <div style="padding-top: 8px; position: relative;">
+        <input placeholder="+1" style="width: 193px; margin: 0 10px; border: 1px solid gray; padding: 5px;" id="inputNumber" [(ngModel)]="outboundNumber" />
+        <div style="position: absolute; right: 12px; top: 10px;">
+            <img src="assets/micro_navigation_icons/ic_exit_24px.svg" style="cursor: pointer;" (click)="clearInputNumber();" />
+        </div>
+    </div>
+
+    <div style="padding-top: 25px;">
+
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber(1);">
+            <div>1</div>
+            <div style="font-size: 11px; color: #a2a2a2;">&nbsp;</div>
+        </div>
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber(2);">
+            <div>2</div>
+            <div style="font-size: 11px; color: #a2a2a2;">ABC</div>
+        </div>
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber(3);">
+            <div>3</div>
+            <div style="font-size: 11px; color: #a2a2a2;">DEF</div>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber(4);">
+            <div>4</div>
+            <div style="font-size: 11px; color: #a2a2a2;">GHI</div>
+        </div>
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber(5);">
+            <div>5</div>
+            <div style="font-size: 11px; color: #a2a2a2;">JKL</div>
+        </div>
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber(6);">
+            <div>6</div>
+            <div style="font-size: 11px; color: #a2a2a2;">MNO</div>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber(7);">
+            <div>7</div>
+            <div style="font-size: 11px; color: #a2a2a2;">PQRS</div>
+        </div>
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber(8);">
+            <div>8</div>
+            <div style="font-size: 11px; color: #a2a2a2;">TUV</div>
+        </div>
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber(9);">
+            <div>9</div>
+            <div style="font-size: 11px; color: #a2a2a2;">WXYZ</div>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber('*');">
+            <div>*</div>
+            <div style="font-size: 11px; color: #a2a2a2;">&nbsp;</div>
+        </div>
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber(0);">
+            <div>0</div>
+            <div style="font-size: 11px; color: #a2a2a2;">&nbsp;</div>
+        </div>
+        <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;"
+            class="softphone-button" (click)="addInputNumber('#');">
+            <div>#</div>
+            <div style="font-size: 11px; color: #a2a2a2;">&nbsp;</div>
+        </div>
+    </div>
+
+    <div style="padding-top: 28px; display: flex; justify-content: space-around; align-items: center; width: 100%;">
+
+        <img src="assets/softphone_icons/arrow-up-box_phone_back_18px.svg" style="cursor: pointer;" />
+
+        <div (click)="placeCall();" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 168px; height: 30px; background-color: #1cbad4; color: white; border-radius: 2px; cursor: pointer;">
+            Place Call
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,20 @@
+<div id="innerContent" style="width: 100%; height:100%">
+
+    <app-usersearch
+        [viewMode]="viewMode"
+        [users]="users"
+        (startCustomerSearch)="searchCustomers($event)"
+        (startViewCustomerDetail)="viewCustomerDetail($event)">
+    </app-usersearch>
+
+    <app-userdetail
+        [viewMode]="viewMode"
+        [userDetail]="userDetail">
+    </app-userdetail>
+
+    <app-agenthome
+        [viewMode]="viewMode"
+        [agentRecentCalls]="agentRecentCalls">
+    </app-agenthome>
+
+</div>

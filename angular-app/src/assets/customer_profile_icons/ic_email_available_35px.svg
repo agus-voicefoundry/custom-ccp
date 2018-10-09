@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="35px" height="35px" viewBox="0 0 35 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_email_available_35px</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="ic_email_available_35px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval-2" fill="#52B6AC" cx="17.5" cy="17.5" r="17.5"></circle>
+        <path d="M26,10 L10,10 C8.9,10 8.01,10.9 8.01,12 L8,24 C8,25.1 8.9,26 10,26 L26,26 C27.1,26 28,25.1 28,24 L28,12 C28,10.9 27.1,10 26,10 Z M26,14 L18,19 L10,14 L10,12 L18,17 L26,12 L26,14 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+    </g>
+</svg>

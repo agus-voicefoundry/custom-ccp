@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_phone_call_dropped_24px</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="ic_phone_call_dropped_24px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M8.91635305,12.9294285 L7.60070941,14.4973515 C5.26931202,11.5875189 3.875,7.89432615 3.875,3.875 C3.875,3.325 4.325,2.875 4.875,2.875 L8.375,2.875 C8.925,2.875 9.375,3.325 9.375,3.875 C9.375,5.125 9.575,6.325 9.945,7.445 C10.055,7.795 9.975,8.185 9.695,8.465 L7.495,10.665 C7.90144929,11.4637858 8.37800703,12.2211438 8.91635305,12.9294285 Z M10.7287433,14.9181027 C11.7321027,15.83964 12.8608374,16.6277789 14.085,17.255 L16.285,15.055 C16.555,14.785 16.955,14.695 17.305,14.815 C18.425,15.185 19.635,15.385 20.875,15.385 C21.425,15.385 21.875,15.835 21.875,16.385 L21.875,19.875 C21.875,20.425 21.425,20.875 20.875,20.875 C16.4711096,20.875 12.4587464,19.2011117 9.4393349,16.4547599 L10.7287433,14.9181027 Z" id="Combined-Shape" fill="#FE4E03" fill-rule="nonzero"></path>
+        <rect id="Rectangle-38" stroke="#FE4E03" transform="translate(11.000000, 14.500000) rotate(40.000000) translate(-11.000000, -14.500000) " x="10.5" y="4.5" width="1" height="20"></rect>
+    </g>
+</svg>

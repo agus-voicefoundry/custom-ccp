@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="custom.css" />
+		
+		<script src="amazon-connect-v1.2.0-2-g5fc44af.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+		<style>
+	
+			#containerDiv iframe {
+			   display: none;
+			}
+			
+		</style>
+	
+	</head>
+	
+	<body>
+		
+		<div id="mainTopBar" style="height: 50px; width: 100%; display: flex; justify-content: space-between; align-items: center;">
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-left: 50px;">
+                <img src="agent_status_bar_icons/ic_add tab_28px.svg" style="cursor: pointer; margin: 0 5px;"/>
+                <div style="margin: 0 5px;">
+                    Add New
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+
+                <div style="z-index: 1;">
+					<div style="display: flex; justify-content: space-between; align-items: center; border: 1px solid #e7e7e7; position: relative;">
+
+						<div style="display: flex; justify-content: space-between; align-items: center; display: none;" id="agentActiveStatus">
+							<img src="agent_status_bar_icons/ic_active_20px.svg" style="margin: 0 2px;" />
+							<div style="margin-right: 5px;">
+								Active
+							</div>
+						</div>
+
+						<div style="display: flex; justify-content: space-between; align-items: center;" id="agentInactiveStatus">
+							<img src="agent_status_bar_icons/ic_inactive_20px.svg" style="margin: 0 2px;" />
+							<div style="margin-right: 5px;">
+								Inactive
+							</div>
+						</div>
+
+						<img src="micro_navigation_icons/ic_dropdown_24px.svg" style="cursor: pointer; border-left: 1px solid #e7e7e7;" onclick="openCloseAgentStatusSelection();" />
+
+					</div>
+
+					<div style="position: absolute; box-shadow: 0px 1px 2px 0px grey; background-color: white; display: none;" id="agentStatusesContainer">
+
+						<div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" class="agent-status" id="selectableActiveAgentStatus" onclick="changeAgentStatus(this);">
+							<img src="agent_status_bar_icons/ic_active_20px.svg" style="margin: 0 2px;" />
+							<div style="width: 100%; text-align: center;">
+								Active
+							</div>
+						</div>
+
+						<div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" class="agent-status" id="selectableInactiveAgentStatus" onclick="changeAgentStatus(this);">
+							<img src="agent_status_bar_icons/ic_inactive_20px.svg" style="margin: 0 2px;" />
+							<div style="margin-right: 5px;">
+								Inactive
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+                <img src="agent_status_bar_icons/ic_softphone active_28px.svg" style="cursor: pointer; margin: 0 5px;" onclick="openCloseSoftphone();" />
+
+                <div id="softphoneContainer" style="position: relative; display: none;">
+
+                    <div style="padding-top: 5px; width: 225px; height: 400px; border: 1px solid #d4d4d4; position: absolute; top: -19px; right: 3px; background-color: white;">
+
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d4d4d4; padding-bottom: 7px;">
+
+                            <img src="softphone_icons/ic_hamburger_phone_settings_24px.svg" style="cursor: pointer; margin: 0 5px;" onclick="" />
+
+                            <img src="micro_navigation_icons/ic_exit_24px.svg" style="cursor: pointer; margin: 0 5px;" onclick="openCloseSoftphone();" />
+
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; justify-content: space-between;" id="inactiveSoftphone">
+
+                            <div style="padding-top: 8px; position: relative;">
+                                <input placeholder="+1" style="width: 193px; margin: 0 10px; border: 1px solid gray; padding: 5px;" id="inputNumber" />
+                                <div style="position: absolute; right: 12px; top: 10px;">
+									<img src="micro_navigation_icons/ic_exit_24px.svg" style="cursor: pointer;" onclick="clearInputNumber();" />
+								</div>
+                            </div>
+
+                            <div style="padding-top: 25px;">
+
+                            </div>
+
+                            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber(1);">
+                                    <div>1</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">&nbsp;</div>
+                                </div>
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber(2);">
+                                    <div>2</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">ABC</div>
+                                </div>
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber(3);">
+                                    <div>3</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">DEF</div>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber(4);">
+                                    <div>4</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">GHI</div>
+                                </div>
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber(5);">
+                                    <div>5</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">JKL</div>
+                                </div>
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber(6);">
+                                    <div>6</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">MNO</div>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber(7);">
+                                    <div>7</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">PQRS</div>
+                                </div>
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber(8);">
+                                    <div>8</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">TUV</div>
+                                </div>
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber(9);">
+                                    <div>9</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">WXYZ</div>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber('*');">
+                                    <div>*</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">&nbsp;</div>
+                                </div>
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber(0);">
+                                    <div>0</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">&nbsp;</div>
+                                </div>
+                                <div style="height: 60px; width: 60px; display: flex; flex-direction: column; justify-content: center; align-items: center;" class="softphone-button" onclick="addInputNumber('#');">
+                                    <div>#</div>
+                                    <div style="font-size: 11px; color: #a2a2a2;">&nbsp;</div>
+                                </div>
+                            </div>
+
+                            <div style="padding-top: 28px; display: flex; justify-content: space-around; align-items: center; width: 100%;">
+
+                                <img src="softphone_icons/arrow-up-box_phone_back_18px.svg" style="cursor: pointer;" />
+
+                                <div onclick="placeCall();" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 168px; height: 30px; background-color: #1cbad4; color: white; border-radius: 2px; cursor: pointer;">
+                                    Place Call
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 374px; display: none;" id="softphoneCalling">
+
+                            <div style="padding-top: 50px; font-size: 14px; color: #2fb0ff;">
+                                Calling...
+                            </div>
+
+                            <div style="padding-top: 40px; text-align: center;">
+                                <div style="font-weight: bold;">Customer Name</div>
+                                <div style="padding-top: 6px; font-size: 12px;"><span>Number: </span> +1 000 000 0000</div>
+                            </div>
+
+                            <div style="padding-top: 15px; display: flex; align-items: center;">
+                                <img src="customer_profile_icons/ic_location_on_24px.svg" width="18" />
+                                <div style="font-size: 12px;">City, Country</div>
+                            </div>
+                            
+
+                            <div style="margin: 15px; text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                                <div style="width: 200px; background-color: #fffeec; margin-bottom: 10px; padding: 10px 0; display: flex; align-items: center; justify-content: space-around;">
+                                    <img src="address_book_icons/ic_call_outgoing_30px.svg" />
+                                    <div style="font-size: 14px;" id="contactphone2">+1 222 222 2222</div>
+                                </div>
+
+                                <div onclick="cancelCall();" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 168px; height: 30px; background-color: #fe4e03; color: white; border-radius: 2px; cursor: pointer;">
+                                    Cancel
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 374px; display: none;" id="softphoneIncoming">
+
+                            <div style="padding-top: 50px; font-size: 14px; color: #2fb0ff;">
+                                Incoming Call...
+                            </div>
+
+                            <div style="padding-top: 40px; text-align: center;">
+                                <div style="font-weight: bold;">Customer Name</div>
+                                <div style="padding-top: 6px; font-size: 12px;"><span>Number: </span> <span id="incomingnumber">+1 000 000 0000</span></div>
+                            </div>
+
+                            <div style="padding-top: 15px; display: flex; align-items: center;">
+                                <img src="customer_profile_icons/ic_location_on_24px.svg" width="18" />
+                                <div style="font-size: 12px;">City, Country</div>
+                            </div>
+
+                            <div style="margin: 15px; text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                                <div style="width: 200px; background-color: #fffeec; margin-bottom: 10px; padding: 10px 0; display: flex; align-items: center; justify-content: space-around;">
+                                    <img src="address_book_icons/ic_call_incoming_30px.svg" />
+                                    <div style="font-size: 14px;" id="incomingnumber2">+1 222 222 2222</div>
+                                </div>
+
+                                <div style="display: flex; justify-content: space-between; align-items: center; width: 200px;">
+                                    <div onclick="declineCall();" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 60px; height: 30px; background-color: #fe4e03; color: white; border-radius: 2px; cursor: pointer;">
+                                        Cancel
+                                    </div>
+                                    <div onclick="acceptCall();" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 130px; height: 30px; background-color: #1cbad4; color: white; border-radius: 2px; cursor: pointer;">
+                                        Accept
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 374px; display: none;" id="softphoneOnCall">
+
+                            <div style="height: 100px; font-size: 14px; color: #a0a0a0; font-weight: bold; display: flex; justify-content: center; align-items: center;">
+								<div>Call Active</div>
+							</div>
+
+                            <div style="padding-top: 40px; text-align: center;">
+                                <div style="font-weight: bold;">Customer Name</div>
+                                <div style="padding-top: 6px; font-size: 12px; color: #a0a0a0;">00:00</div>
+                            </div>
+
+                            <div style="padding-top: 15px; display: flex; align-items: center;">
+                                <div style="text-align: center;">
+                                    <div onclick="viewQuickConnects();" style="height: 40px; width: 50px; background-color: #e4e4e4; display: flex; justify-content: center; align-items: center; border-right: 1px solid white; border-bottom: 1px solid gray; border-radius: 2px; cursor: pointer;">
+                                        <img src="softphone_icons/ic_transfer_inactive_24px.svg" />
+                                    </div>
+                                    <div style="font-size: 12px; color: #a0a0a0; padding-top: 4px;">
+                                        Transfer
+                                    </div>
+                                </div>
+                                <div style="text-align: center;">
+									<div id="holdButton" onclick="holdCall();" style="height: 40px; width: 50px; background-color: #e4e4e4; display: flex; justify-content: center; align-items: center; border-right: 1px solid white; border-bottom: 1px solid gray; border-radius: 2px; cursor: pointer;">
+										<img id="holdIcon" src="softphone_icons/ic_phone_hold_inactive_24px.svg" />
+									</div>
+									<div style="font-size: 12px; color: #a0a0a0; padding-top: 4px;">
+										<span id="holdLabel">Hold</span>
+									</div>
+								</div>
+                                <div style="text-align: center;">
+                                    <div style="height: 40px; width: 50px; background-color: #e4e4e4; display: flex; justify-content: center; align-items: center; border-right: 1px solid white; border-bottom: 1px solid gray; border-radius: 2px; cursor: pointer;">
+                                        <img src="softphone_icons/ic_mic_off_inactive_24px.svg" />
+                                    </div>
+                                    <div style="font-size: 12px; color: #a0a0a0; padding-top: 4px;">
+                                        Mute
+                                    </div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="height: 40px; width: 50px; background-color: #e4e4e4; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid gray; border-radius: 2px; cursor: pointer;">
+                                        <img src="softphone_icons/ic_phone_secure_inactive_24px.svg" />
+                                    </div>
+                                    <div style="font-size: 12px; color: #a0a0a0; padding-top: 4px;">
+                                        Pause
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div style="margin: 17px 0; text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                                <div onclick="cancelCall();" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 200px; height: 30px; background-color: #fe4e03; color: white; border-radius: 2px; cursor: pointer;">
+                                    End Call
+                                </div>
+                            </div>
+
+                        </div>
+						
+						<div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 374px; display: none;" id="softphoneTransfer">
+
+							<div style="width: 100%; height: 100px; display: flex; flex-direction: column; justify-content: space-between;">
+
+								<div style="font-size: 12px; background-color: #ffffec; text-align: center; padding: 5px 0; width: 100%;">
+									Transfer
+								</div>
+
+								<div style="padding: 18px 5px 0 5px; font-size: 13px;">
+
+									<div style="font-weight: bold; padding-bottom: 5px;">Select Quick Connect</div>
+
+									<div style="display: flex; justify-content: space-between; align-items: center; border: 1px solid #e7e7e7; position: relative;">
+
+										<div style="display: flex; justify-content: space-between; align-items: center; margin: 0 5px;" id="selectedQuickConnect">
+										</div>
+
+										<img src="micro_navigation_icons/ic_dropdown_24px.svg" style="cursor: pointer; border-left: 1px solid #e7e7e7;" onclick="openCloseQuickConnectSelection();" />
+
+									</div>
+
+									<div style="position: absolute; box-shadow: 0px 1px 2px 0px grey; background-color: white; width: 213px; right: 6px; display: none;" id="quickConnectsContainer">
+									
+										<!-- quick connects will be added here dynamically -->
+
+									</div>
+
+								</div>
+
+							</div>
+
+							<div style="padding-top: 40px; text-align: center;">
+								<div style="font-weight: bold;">Customer Name</div>
+								<div style="padding-top: 6px; font-size: 12px; color: #a0a0a0;">00:00</div>
+							</div>
+
+							<div style="padding-top: 15px; display: flex; align-items: center;">
+								<div style="text-align: center;">
+									<div onclick="viewQuickConnects();" style="height: 40px; width: 50px; background-color: #b3b3b3; display: flex; justify-content: center; align-items: center; border-right: 1px solid white; border-bottom: 1px solid gray; border-radius: 2px; cursor: pointer;">
+										<img src="softphone_icons/ic_transfer_active_24px.svg" />
+									</div>
+									<div style="font-size: 12px; color: #a0a0a0; padding-top: 4px;">
+										Transfer
+									</div>
+								</div>
+								<div style="text-align: center;">
+									<div id="holdButton" onclick="holdCall();" style="height: 40px; width: 50px; background-color: #e4e4e4; display: flex; justify-content: center; align-items: center; border-right: 1px solid white; border-bottom: 1px solid gray; border-radius: 2px; cursor: pointer;">
+										<img id="holdIcon" src="softphone_icons/ic_phone_hold_inactive_24px.svg" />
+									</div>
+									<div style="font-size: 12px; color: #a0a0a0; padding-top: 4px;">
+										Hold
+									</div>
+								</div>
+								<div style="text-align: center;">
+									<div style="height: 40px; width: 50px; background-color: #e4e4e4; display: flex; justify-content: center; align-items: center; border-right: 1px solid white; border-bottom: 1px solid gray; border-radius: 2px; cursor: pointer;">
+										<img src="softphone_icons/ic_mic_off_inactive_24px.svg" />
+									</div>
+									<div style="font-size: 12px; color: #a0a0a0; padding-top: 4px;">
+										Mute
+									</div>
+								</div>
+								<div style="text-align: center;">
+									<div style="height: 40px; width: 50px; background-color: #e4e4e4; display: flex; justify-content: center; align-items: center; border-bottom: 1px solid gray; border-radius: 2px; cursor: pointer;">
+										<img src="softphone_icons/ic_phone_secure_inactive_24px.svg" />
+									</div>
+									<div style="font-size: 12px; color: #a0a0a0; padding-top: 4px;">
+										Pause
+									</div>
+								</div>
+							</div>
+
+							<div style="margin: 17px 0; text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+								<div onclick="transferCall();" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 200px; height: 30px; background-color: #1cbad4; color: white; border-radius: 2px; cursor: pointer;">
+									Transfer Call
+								</div>
+							</div>
+
+						</div>
+						
+						<div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 374px; display: none;" id="softphoneCallEnded">
+
+                            <div style="padding-top: 50px; font-size: 14px; color: #a0a0a0; font-weight: bold;">
+                                Call Ended
+                            </div>
+
+                            <div style="padding-top: 40px; text-align: center;">
+                                <div style="font-weight: bold;">Customer Name</div>
+                                <div style="padding-top: 6px; font-size: 12px; color: #a0a0a0;">00:00</div>
+                            </div>
+
+                            <div style="padding-top: 15px; display: flex; align-items: center;">
+                                <div style="margin: 17px 0; text-align: center; width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+									<div onclick="setAsAvailable();" style="font-size: 14px; display: flex; justify-content: center; align-items: center; width: 200px; height: 30px; background-color: #1cbad4; color: white; border-radius: 2px; cursor: pointer;">
+										Enter Queue
+									</div>
+								</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <img src="agent_status_bar_icons/ic_agent account_28px.svg" style="cursor: pointer; margin: 0 5px;" />
+
+                <div>Me</div>
+                
+                <img src="micro_navigation_icons/ic_dropdown_24px.svg" style="cursor: pointer; margin-right: 0 5px;" />
+                
+            </div>
+
+		</div>
+		
+		<div id="mainContent" style="display: flex; height: calc(100% - 50px);">
+		
+			<div id="innerLeftBar" style="width: 50px; background-color: #385762;">
+				<div style="width: 50px; height: 50px; background-color: #0b2b37; display: flex; justify-content: center; align-items: center;">
+                    <img src="customer_profile_icons/ic_home_white_nav_24px.svg" style="cursor: pointer;" />
+                </div>
+			</div>
+			
+			<div id="innerContent" style="width: 100%;">
+			
+				<div id="innerTopBar" style="height: 80px; background-color: #f4f5f6; padding: 0 20px;">
+                    <div style="font-weight: bold; padding: 20px 0 5px 0;">
+                        Waiting Inbound
+                    </div>
+
+                    <div style="color: gray;">
+                        00:00
+                    </div>
+				</div>
+				
+				<div id="agentDetailsContainer" style="display: flex; height: calc(100% - 80px);">
+		
+					<div id="agentProfileContainer" style="width: 300px; background-color: #e9ecf1;">
+
+                        <div style="text-align: center;">
+
+                            <div style="font-weight: bold; padding: 30px 0 15px 0;">
+                                Agent Profile
+                            </div>
+
+                            <img src="customer_profile_icons/ic_blank profile_52px.svg" height="100"/>
+                        </div>
+
+                        <div style="padding: 20px;">
+
+                            <div style="border-bottom: 1px solid #d4d4d4; width: 100%; padding-top: 10px;">
+                                Agent Name
+                            </div>
+                            <div style="color: gray; padding-top: 3px; font-size: 12px;">
+                                NAME
+                            </div>
+
+                            <div style="border-bottom: 1px solid #d4d4d4; width: 100%; padding-top: 10px;">
+                                Agent Title
+                            </div>
+                            <div style="color: gray; padding-top: 3px; font-size: 12px;">
+                                TITLE
+                            </div>
+
+                            <div style="display: flex; padding-top: 15px;">
+                                <div style="background-color: #385762; padding: 3px; color: #ffffff; margin-right: 5px;">Skill 1</div>
+                                <div style="background-color: #385762; padding: 3px; color: #ffffff;">Skill 2</div>
+                            </div>
+                            <div style="color: gray; padding-top: 8px; font-size: 12px;">
+                                ASSIGNED SKILLS
+                            </div>
+
+                        </div>
+
+					</div>
+					
+					<div id="recentCallsContainer" style="width: 300px; background-color: #0b2b37;">
+						<div style="width: 300px; height: 200px; background-color: #385762;"></div>
+					</div>
+				
+				</div>
+				
+			</div>
+		
+		</div>
+		
+		<div id="containerDiv" style="height: 100%; position: absolute; top: 0;"></div>
+		
+		<script src="customized-api.js"></script>
+
+	</body>
+	
+</html>

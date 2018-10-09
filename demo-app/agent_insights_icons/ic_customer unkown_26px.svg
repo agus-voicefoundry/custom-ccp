@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_customer unkown_26px</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="ic_customer-unkown_26px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <ellipse id="Oval" fill="#5F7A8E" cx="19.901146" cy="16.7312974" rx="5.60344828" ry="5.57142857"></ellipse>
+        <path d="M10.0024776,11.9510349 C12.4894121,11.9510349 14.5037164,9.94824084 14.5037164,7.47551745 C14.5037164,5.00279406 12.4894121,3 10.0024776,3 C7.51554318,3 5.50123881,5.00279406 5.50123881,7.47551745 C5.50123881,9.94824084 7.51554318,11.9510349 10.0024776,11.9510349 Z M13.7661441,14.7115133 C13.5155462,15.3708493 13.3784067,16.0855786 13.3784067,16.8321555 C13.3784067,18.4028436 13.9854131,19.832568 14.978907,20.9020698 L1,20.9020698 L1,18.6643111 C1,15.688092 6.99790072,14.1887936 10.0024776,14.1887936 C11.0276148,14.1887936 12.4012105,14.3633298 13.7661441,14.7115133 Z" id="Combined-Shape" fill="#5F7A8E" fill-rule="nonzero"></path>
+        <text id="?" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="10" font-weight="bold" letter-spacing="0.297520667" fill="#FFFFFF">
+            <tspan x="17.2694519" y="20.4740143">?</tspan>
+        </text>
+    </g>
+</svg>

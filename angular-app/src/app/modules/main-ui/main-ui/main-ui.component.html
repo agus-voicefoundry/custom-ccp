@@ -1,0 +1,15 @@
+<app-header></app-header>
+
+<div id="mainContent" style="display: flex; height: calc(100% - 50px);">
+
+    <app-leftbar style="height:100%"
+        (viewModeChange)="setViewMode($event)">
+    </app-leftbar>
+
+    <app-innercontent style="width:100%"
+        [agentRecentCalls]="agentRecentCalls"
+        [viewMode]="viewMode"
+        (viewModeChange)="setViewMode($event)">
+    </app-innercontent>
+
+</div>

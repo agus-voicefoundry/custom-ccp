@@ -1,0 +1,125 @@
+/* You can add global styles to this file, and also import other style files */
+html, body {
+	margin: 0;
+	height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.softphone-button  {
+    cursor: pointer;
+}
+
+.softphone-button:hover {
+    background-color: #e8e8e8;
+}
+
+.agent-status:hover {
+    background-color: #e8e8e8;
+}
+
+.quick-connect {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.quick-connect:hover {
+    background-color: #e8e8e8;
+}
+
+#containerDiv iframe {
+    display: none;
+ }
+
+ .customer-detail-tab:hover {
+	background-color: #e8e8e8;
+}
+
+.customer-detail-tab.selected-tab {
+	border-bottom: 3px solid black;
+}
+
+.ticket-box {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	height: 130px;
+	width: 350px;
+	border: 1px solid lightgray;
+	margin: 10px;
+	padding: 6px;
+}
+
+.ticket-box-header {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 10px;
+}
+
+.ticket-box-detail-container {
+	padding: 5px 0;
+	display: flex;
+}
+
+.ticket-box-detail-label {
+	font-weight: bold;
+	color: gray;
+	width: 90px;
+}
+
+.ticket-box-detail-content {
+	width: 270px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.history-box {
+	display: flex;
+	width: 100%;
+	border: 1px solid lightgray;
+	margin: 5px 10px;
+}
+
+.history-first-col {
+	width: 100px;
+	border-right: 1px solid lightgray;
+	padding: 10px;
+}
+
+.history-second-col {
+	width: 400px;
+	border-right: 1px solid lightgray;
+}
+
+.history-third-col {
+	padding: 10px;
+}
+
+.history-date {
+	font-weight: bold;
+}
+
+.history-call-type {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid lightgray;
+	padding: 10px;
+}
+
+.history-agent-details {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+}
+
+.history-agent-name {
+	font-weight: bold;
+}
+
+.history-agent-title {
+	color: gray;
+}
+
+.history-call-details {
+	font-weight: bold;
+}

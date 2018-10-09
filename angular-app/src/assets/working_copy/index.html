@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+	<head>
+		<script src="amazon-connect-v1.2.0-2-g5fc44af.js"></script>
+	</head>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	
+	<style>
+	
+		#containerDiv iframe {
+		   display: none;
+		}
+		
+		@font-face {
+		   font-family: 'Open Sans Light';
+		   font-style: normal;
+		   font-weight: 300;
+		   src:url(https://fonts.gstatic.com/s/opensans/v13/DXI1ORHCpsQm3Vp6mXoaTRa1RVmPjeKy21_GQJaLlJI.woff) format('woff');
+		}
+
+		body {
+			margin: 0;
+			font-family: 'Open Sans Light' !important;
+		}
+		
+	</style>
+	
+	<body style="height: 100%; background-color: #f5f5f5; display: flex; justify-content: center; align-items: center;">
+	
+		<div style="justify-content: center; display: flex;" id="loginDiv">
+			<div style="width: 400px; background-color: white; margin-top: 20px; border-radius: 4px; box-shadow:  0px 0px 10px -2px rgba(0,0,0,0.75); padding: 20px;">
+				
+				<div style="text-align: center; font-size: 20px; font-weight: bold;">
+					Amazon Connect Custom Dialler
+				</div>
+				
+				<div style="display: flex; justify-content: center; margin-top: 20px;">
+					<button onclick="login();" class="btn btn-primary" id="loginBtn">Login</button>
+					<div id="initializingDiv" style="display: none;">Initializing...</div>
+				</div>
+				
+			</div>
+		</div>
+	
+		<div style="justify-content: center; display: none;" id="customDialer">
+			<div style="background-color: white; margin-top: 20px; border-radius: 4px; box-shadow:  0px 0px 10px -2px rgba(0,0,0,0.75); padding: 20px;">
+			
+				<div style="display: flex; justify-content: space-between;">
+					<div>
+						<span style="font-weight: bold;">Agent Name:</span>&nbsp;<span id="agentName"></span>
+					</div>
+					<div style="display: flex; align-items: center;">
+						<span style="font-weight: bold;">Status:</span>&nbsp;<span id="agentState"class="label label-default"></span>
+					</div>
+				</div>
+				
+				<div class="panel panel-default" style="margin-top: 20px;">
+				  <div class="panel-heading" style="display: flex; justify-content: space-between; align-items: center;">
+					<b>Agent Daily Stats</b>
+					<button class="btn btn-default btn-sm">Refresh</button>
+				  </div>
+
+				  <table class="table">
+					<thead>
+					  <tr>
+						<th style="text-align: center;">Contacts Handled</th>
+						<th style="text-align: center;">Incoming</th>
+						<th style="text-align: center;">Outbound</th>
+						<th style="text-align: center;">On Call Time</th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td style="text-align: center;">0</td>
+						<td style="text-align: center;">0</td>
+						<td style="text-align: center;">0</td>
+						<td style="text-align: center;">0</td>
+					  </tr>
+					</tbody>
+				  </table>
+				</div>
+				
+				<div id="callDiv">
+				
+					<div style="display: flex; align-items: center; flex-direction: column; ">
+						<div style="display: flex; justify-content: center; center; margin-top: 20px; width: 360px;">
+							<input type="text" class="form-control" placeholder="+61444555666" id="inputNumber"/>
+							<button onclick="callContact();" class="btn btn-success" style="margin-left: 5px;">Call</button>				
+						</div>
+						<div style="font-size: 12px; margin-top: 2px;">
+							Enter a phone number. e.g. +61444555666
+						</div>
+					</div>
+				
+					<div style="display: flex; justify-content: center; margin-top: 20px;" id="goOfflineDiv">
+						<button onclick="goOffline();" class="btn btn-danger">Go offline</button>
+					</div>
+				</div>
+				
+				<div style="display: none; justify-content: center; margin-top: 20px;" id="setAsAvailableDiv">
+					<button onclick="setAsAvailable();" class="btn btn-success">Set to available</button>
+				</div>
+				
+				<div style="display: none; justify-content: center; margin-top: 20px;" id="diallingDiv">
+					Dialling...
+				</div>
+				
+				<div style="display: none; justify-content: center; margin-top: 20px; color: red;" id="errorDiv">
+					An error has ocurred.
+				</div>
+				
+				<div style="display: none; align-items: center; flex-direction: column; margin-top: 20px;" id="actionButtonsDiv">
+					<div class="callingNumber" style="margin-bottom: 20px;"></div>
+					<button onclick="endCall();" class="btn btn-danger">End Call</button>
+				</div>
+				
+				<div style="display: none; align-items: center; flex-direction: column; margin-top: 20px;" id="inboundCallDiv">
+				
+					<div class="callingNumber"></div>
+					
+					<div style="display: flex; justify-content: center; margin-top: 20px;">
+						<button onclick="acceptCall();" class="btn btn-success">Accept Call</button>
+						<button onclick="rejectCall();" class="btn btn-danger" style="margin-left: 5px;">Reject Call</button>
+					</div>
+				</div>
+				
+				<div class="well" style="margin-top: 20px; margin-bottom: 0 !important; display: none;" id="customerInputContainer">
+					<b>Customer input: </b><span id="customerInput"></span>
+				</div>
+				
+			</div>
+		</div>
+	
+		<div id="containerDiv" style="height: 100%; position: absolute; top: 0;"></div>
+	</body>
+	
+	<script>
+		
+		var updatedAgent;
+		var connectedContact;
+		
+		function login() {
+		
+			$('#loginBtn').css('display', 'none');
+			$('#initializingDiv').css('display', 'flex');
+		
+			var containerDiv = document.getElementById("containerDiv");
+		
+			connect.core.initCCP(containerDiv, {
+			   ccpUrl: "https://datastreaming-test.awsapps.com/connect/ccp#/",
+			   //ccpUrl: "https://demo-aztech.awsapps.com/connect/ccp#",
+			   loginPopup: true
+			});
+			
+			connect.agent(function(agent) {
+					
+				var agentName = agent.getName();
+				
+				console.log(agent.getConfiguration());
+				
+				$('#agentName').html(agentName);
+				
+				console.log("AGUS LOG: connect.agent");
+				
+				$('#loginDiv').css('display', 'none');
+				$('#customDialer').css('display', 'flex');
+				
+				agent.onRefresh(function(agent) {
+			
+					updatedAgent = agent;
+
+					var agentState = agent.getState();
+					
+					console.log(agentState);
+					
+					if (agentState.name == 'Available') {
+						$('#callDiv').show();
+						$('#actionButtonsDiv').css('display', 'none');
+						$('#inboundCallDiv').css('display', 'none');
+						$('#setAsAvailableDiv').css('display', 'none');
+						$('#agentState').removeClass();
+						$('#agentState').addClass('label label-primary');
+					} else if (agentState.name == 'MissedCallAgent' || agentState.name == 'AfterCallWork' || agentState.name == 'FailedConnectCustomer') {
+						$('#callDiv').css('display', 'none');
+						$('#actionButtonsDiv').css('display', 'none');
+						$('#inboundCallDiv').css('display', 'none');
+						$('#setAsAvailableDiv').css('display', 'flex');
+						
+						$('#agentState').removeClass();
+						if (agentState.name == 'AfterCallWork') {
+							$('#agentState').addClass('label label-default');
+						} else {
+							$('#agentState').addClass('label label-warning');
+						}
+						
+					} else if (agentState.name == 'PendingBusy') {
+						$('#callDiv').css('display', 'none');
+						$('#actionButtonsDiv').css('display', 'none');
+						$('#inboundCallDiv').css('display', 'flex');
+						$('#agentState').removeClass();
+						$('#agentState').addClass('label label-primary');
+					} else if (agentState.name == 'Busy') {
+						$('#callDiv').css('display', 'none');
+						$('#inboundCallDiv').css('display', 'none');
+						$('#actionButtonsDiv').css('display', 'flex');
+						$('#agentState').removeClass();
+						$('#agentState').addClass('label label-success');
+					} else {
+						$('#callDiv').css('display', 'none');
+						$('#agentState').removeClass();
+						$('#agentState').addClass('label label-default');
+					}
+					
+					$('#agentState').html(agentState.name);
+				});
+				
+				agent.onOffline(function(agent) {
+					
+					console.log("AGUS LOG: agent.onOffline");
+					
+					$('#callDiv').css('display', 'none');
+					$('#setAsAvailableDiv').css('display', 'flex');
+					$('#errorDiv').css('display', 'none');
+				});
+				
+				agent.onAfterCallWork(function(agent) {
+					
+					console.log("AGUS LOG: agent.onAfterCallWork");
+
+				});
+			});
+			
+			connect.contact(function(contact) {
+				
+				connectedContact = contact;
+			
+				if (contact.isInbound()) {
+					
+					console.log("AGUS LOG: connect.contact (inbound).");
+					
+					var phoneNumberConnection = contact.getConnections().filter(function(conn) {
+					   return conn.getType() === connect.ConnectionType.INBOUND && conn.getEndpoint().type === connect.EndpointType.PHONE_NUMBER;
+					});
+					
+					if (phoneNumberConnection && phoneNumberConnection.length == 1) {
+						$('.callingNumber').html('Inbound call from ' + phoneNumberConnection[0].getEndpoint().phoneNumber);
+					}
+					
+				} else {
+				
+					console.log("AGUS LOG: connect.contact (outbound).");
+					
+					var inputNumber = $('#inputNumber').val();
+					$('.callingNumber').html('Calling ' + inputNumber);
+				}
+				
+				contact.onConnected(function() {
+				
+					console.log("AGUS LOG: contact.onConnected");
+					
+					var attributeMap = contact.getAttributes();
+					
+					console.log("attributeMap: " + attributeMap);
+					console.log(attributeMap);
+					
+					if (attributeMap && attributeMap.DateOfBirth) {
+						//alert("Customer date of birth is: " + attributeMap.DateOfBirth.value);
+						$('#customerInput').html(attributeMap.DateOfBirth.value);
+						$('#customerInputContainer').show();
+					}
+					
+					if (contact.isInbound()) {
+					
+						var phoneNumberConnection = contact.getConnections().filter(function(conn) {
+						   return conn.getType() === connect.ConnectionType.INBOUND && conn.getEndpoint().type === connect.EndpointType.PHONE_NUMBER;
+						});
+						
+						if (phoneNumberConnection && phoneNumberConnection.length == 1) {
+							$('.callingNumber').html('Connected to ' + phoneNumberConnection[0].getEndpoint().phoneNumber);
+						}
+						
+					} else {
+					
+						var inputNumber = $('#inputNumber').val();
+						$('.callingNumber').html('Connected to ' + inputNumber);
+					}
+					
+				});
+				
+				contact.onIncoming(function(contact) {
+				
+					console.log("AGUS LOG: contact.onIncoming");
+				});
+				
+				contact.onAccepted(function(contact) {
+				
+					console.log("AGUS LOG: contact.onAccepted");
+				});
+				
+				contact.onEnded(function(contact) {
+				
+					$('#customerInputContainer').hide();
+					
+					console.log("AGUS LOG: contact.onEnded");
+				});
+			
+			});
+		}
+		
+		function callContact() {
+		
+			$('#errorDiv').css('display', 'none');
+		
+			var inputNumber = $('#inputNumber').val();
+			
+			var endpoint = connect.Endpoint.byPhoneNumber(inputNumber);
+			
+			//var endpoint = connect.Endpoint.byPhoneNumber("+61449216577");
+			//var endpoint = connect.Endpoint.byPhoneNumber("+61432330174");
+			
+			updatedAgent.connect(endpoint, {
+			   success: function() {
+
+					$('#actionButtonsDiv').css('display', 'flex');
+			   },
+			   failure: function() {
+			   
+					$('#errorDiv').css('display', 'flex');
+			   }
+			});
+		}
+		
+		function endCall() {
+			
+			$('#errorDiv').css('display', 'none');
+			
+			if (connectedContact) {
+			
+				connectedContact.getAgentConnection().destroy({
+				   success: function() {
+					//alert("yes");
+				   },
+				   failure: function() {
+					$('#errorDiv').css('display', 'flex');
+				   }
+				});
+			}
+		}
+		
+		function acceptCall() {
+		
+			$('#errorDiv').css('display', 'none');
+			
+			if (connectedContact) {
+			
+				connectedContact.accept({
+				   success: function() {
+						$('#callDiv').css('display', 'none');
+						$('#inboundCallDiv').css('display', 'none');
+						$('#actionButtonsDiv').css('display', 'flex');
+				   },
+				   failure: function() {
+					$('#errorDiv').css('display', 'flex');
+				   }
+				});
+			}
+				
+		}
+		
+		function rejectCall() {
+			
+			/*
+			if (connectedContact) {
+			
+				connectedContact.destroy({
+				   success: function() {
+				   },
+				   failure: function() {
+					$('#errorDiv').css('display', 'flex');
+				   }
+				});
+			}
+			*/
+		}
+		
+		function setAsAvailable() {
+		
+			$('#errorDiv').css('display', 'none');
+			$('#setAsAvailableDiv').css('display', 'none');
+			
+			var routableState = updatedAgent.getAgentStates().filter(function(state) {
+			   return state.type === connect.AgentStateType.ROUTABLE;
+			})[0];
+			
+			updatedAgent.setState(routableState, {
+			   success: function() {
+				$('#callDiv').show();
+			   },
+			   failure: function() {
+				$('#errorDiv').css('display', 'flex');
+			   }
+			});
+		}
+		
+		function goOffline() {
+			
+			$('#errorDiv').css('display', 'none');
+			
+			var routableState = updatedAgent.getAgentStates().filter(function(state) {
+			   return state.type === connect.AgentStateType.OFFLINE;
+			})[0];
+			
+			updatedAgent.setState(routableState, {
+			   success: function() {
+				$('#callDiv').css('display', 'none');
+			   },
+			   failure: function() {
+				$('#errorDiv').css('display', 'flex');
+			   }
+			});
+		}
+		
+	</script>
+	
+</html>

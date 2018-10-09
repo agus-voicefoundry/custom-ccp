@@ -1,0 +1,26 @@
+html, body {
+	margin: 0;
+	height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.softphone-button  {
+    cursor: pointer;
+}
+
+.softphone-button:hover {
+    background-color: #e8e8e8;
+}
+
+.agent-status:hover {
+    background-color: #e8e8e8;
+}
+
+.quick-connect {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.quick-connect:hover {
+    background-color: #e8e8e8;
+}
